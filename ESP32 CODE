@@ -1,0 +1,76 @@
+#include <TinyGPS++.h>
+
+#define GAS_SENSOR 32
+#define BUZZER 33
+
+TinyGPSPlus gps;
+HardwareSerial GPS(2);   // UART2
+
+int gasValue = 0;
+const int threshold = 2000;   // Adjust after calibration
+
+void setup()
+{
+  Serial.begin(115200);
+
+  pinMode(BUZZER, OUTPUT);
+  pinMode(GAS_SENSOR, INPUT);
+
+  // GPS RX=16 TX=17
+  GPS.begin(9600, SERIAL_8N1, 16, 17);
+
+  Serial.println("Gas Leakage Detection System Started");
+}
+void loop()
+{
+  // Read GPS continuously
+  while (GPS.available())
+  {
+    gps.encode(GPS.read());
+  }
+
+  // Read Gas Sensor
+  gasValue = analogRead(GAS_SENSOR);
+
+  // Buzzer Control
+  if (gasValue < threshold)
+  {
+    digitalWrite(BUZZER,0);
+  }
+  else
+  {
+    digitalWrite(BUZZER,1);
+  }
+
+  float latitude = 0;
+  float longitude = 0;
+
+  if (gps.location.isValid())
+  {
+    latitude = gps.location.lat();
+    longitude = gps.location.lng();
+  }
+
+  // Print in Python-friendly format
+  Serial.print("GAS:");
+  Serial.print(gasValue);
+
+  Serial.print(",");
+
+  Serial.print("LAT:");
+  Serial.print(latitude, 6);
+
+  Serial.print(",");
+
+  Serial.print("LON:");
+  Serial.print(longitude, 6);
+
+  Serial.print(",");
+
+  if (gasValue > threshold)
+      Serial.println("STATUS:LEAK");
+  else
+      Serial.println("STATUS:NORMAL");
+
+  delay(1000);
+}
