@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        IoT-Based Safety Monitoring and Emergency Alert System
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        IoT-Based Safety Monitoring and Emergency Alert System
+    </h1>
+
+    <p>
+        Real-Time Safety Monitoring & Emergency Alert Dashboard
+    </p>
+
+</header>
+
+
+<main>
+
+
+    <!-- CONNECTION -->
+
+    <div class="connection">
+
+        <span id="connectionDot"></span>
+
+        <span id="connectionText">
+            Connecting...
+        </span>
+
+    </div>
+
+
+    <!-- MAIN ALERT -->
+
+    <section
+        id="alertBox"
+        class="alert normal"
+    >
+
+        <div
+            id="statusIcon"
+            class="icon"
+        >
+            ✓
+        </div>
+
+
+        <div>
+
+            <h2 id="status">
+                NORMAL
+            </h2>
+
+            <p id="statusMessage">
+                No gas leakage detected.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SENSOR DATA -->
+
+    <section class="cards">
+
+
+        <div class="card">
+
+            <h3>
+                Gas Level
+            </h3>
+
+            <div
+                id="gasLevel"
+                class="value"
+            >
+                0
+            </div>
+
+            <p>
+                MQ-6 Sensor
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Current Status
+            </h3>
+
+            <div
+                id="gasStatus"
+                class="value"
+            >
+                NORMAL
+            </div>
+
+            <p>
+                Gas Risk
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Latitude
+            </h3>
+
+            <div
+                id="latitude"
+                class="value location-value"
+            >
+                0.000000
+            </div>
+
+            <p>
+                GPS
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Longitude
+            </h3>
+
+            <div
+                id="longitude"
+                class="value location-value"
+            >
+                0.000000
+            </div>
+
+            <p>
+                GPS
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- LOCATION -->
+
+    <section class="location">
+
+        <h2>
+            📍 Device Location
+        </h2>
+
+
+        <p>
+
+            Latitude:
+
+            <strong id="latDisplay">
+                0.000000
+            </strong>
+
+        </p>
+
+
+        <p>
+
+            Longitude:
+
+            <strong id="lonDisplay">
+                0.000000
+            </strong>
+
+        </p>
+
+
+        <a
+            id="mapLink"
+            href="#"
+            target="_blank"
+            class="map-button"
+        >
+
+            Open Location in Google Maps
+
+        </a>
+
+    </section>
+
+
+    <!-- UPDATE -->
+
+    <section class="last-update">
+
+        <h2>
+            Last Sensor Update
+        </h2>
+
+        <p id="timestamp">
+            Waiting for sensor data...
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        ESP32 • MQ-6 • GPS • Buzzer • GREEN-API
+    </p>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
